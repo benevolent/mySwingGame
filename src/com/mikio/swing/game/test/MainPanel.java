@@ -5,18 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-import com.mikio.swing.game.test.MainPanel;
-import com.mikio.swing.game.test.Map;
-import com.mikio.swing.game.test.Player;
-
 @SuppressWarnings("serial")
-public class MainPanel extends JPanel implements Runnable,MouseMotionListener, MouseListener,KeyListener{
+public class MainPanel extends JPanel implements Runnable,KeyListener{
 	
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = 480;
@@ -26,14 +19,14 @@ public class MainPanel extends JPanel implements Runnable,MouseMotionListener, M
 	
 	private Player player;
 	
+	private MousePlayer player2;
+	
 	private boolean leftPressed;
 	private boolean rightPressed;
 	private boolean upPressed;
 	
 	private Thread gameloop;
-	
-	private int mouseX,mouseY;
-	
+		
 	
 	public MainPanel() {
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
@@ -45,8 +38,11 @@ public class MainPanel extends JPanel implements Runnable,MouseMotionListener, M
 		
 		player = new Player(192, 32, map);
 		
-		addMouseListener(this);
-		addMouseMotionListener(this);
+		player2 = new MousePlayer(WIDTH / 2, HEIGHT / 2);
+		
+		
+		addMouseMotionListener(player2);
+		addMouseListener(player2);
 		addKeyListener(this);
 		
 		gameloop = new Thread(this);
@@ -70,9 +66,9 @@ public class MainPanel extends JPanel implements Runnable,MouseMotionListener, M
 		map.draw(g,offsetX,offsetY);
 		
 		player.draw(g,offsetX,offsetY);
+		
+		player2.draw(g);
         
-		g.setColor(Color.BLACK);
-		g.drawRect(mouseX-IMAGESIZE/2, mouseY-IMAGESIZE/2, IMAGESIZE, IMAGESIZE);
 	}
 	@Override
 	public void run() {
@@ -99,42 +95,7 @@ public class MainPanel extends JPanel implements Runnable,MouseMotionListener, M
 			}
 		}
 	}
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		mouseX = e.getX();
-		mouseY = e.getY();
-		System.out.println("x:"+mouseX);
-		System.out.println("y:"+mouseY);
-	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		System.out.println("Shoot!!");
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -167,5 +128,4 @@ public class MainPanel extends JPanel implements Runnable,MouseMotionListener, M
 		// TODO Auto-generated method stub
 		
 	}
-
 }
