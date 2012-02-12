@@ -38,7 +38,7 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 		
 		player = new Player(192, 32, map);
 		
-		player2 = new MousePlayer(WIDTH / 2, HEIGHT / 2);
+		player2 = new MousePlayer(player,WIDTH / 2, HEIGHT / 2);
 		
 		addMouseListener(player2);
 		addMouseMotionListener(player2);

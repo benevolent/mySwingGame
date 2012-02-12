@@ -8,27 +8,30 @@ import java.awt.event.MouseMotionListener;
 
 public class MousePlayer implements MouseListener,MouseMotionListener{
 
-	private double x;
+	private int x;
 	
-	private double y;
+	private int y;
 			
 	private Player player;
 	
 	private boolean isNear;
 	
-	public MousePlayer(double x,double y) {
+	public MousePlayer(Player player,int x,int y) {
 		this.x = x;
 		this.y = y;
+		this.player = player;
+		
 		isNear = false;
 	}
 	
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);
-		g.drawRect((int)x-Player.WIDTH, (int)y-Player.HEIGHT, Player.WIDTH*2, Player.HEIGHT*2);
+		g.drawRect(x-Player.WIDTH, y-Player.HEIGHT, Player.WIDTH*2, Player.HEIGHT*2);
 		
+		//aim用
 		if (isNear){
 			g.setColor(Color.RED);
-			g.drawRect((int)x-Player.WIDTH, (int)y-Player.HEIGHT, Player.WIDTH*2, Player.HEIGHT*2);
+			g.drawRect(x-Player.WIDTH/2, y-Player.HEIGHT/2, Player.WIDTH, Player.HEIGHT);
 		}
 	}
 	
@@ -44,8 +47,7 @@ public class MousePlayer implements MouseListener,MouseMotionListener{
 	public void mouseMoved(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
-		
-		//isNear = player.isPlayerDistance(this);
+		isNear = player.isPlayerDistance(this);
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {

@@ -126,8 +126,9 @@ public class Player{
 	}
 	
 	public boolean isPlayerDistance(MousePlayer player2) {
-		double distance = this.x - player2.getMouseX();
-		if (Math.abs(distance) < 64){
+		double distanceX = this.x - player2.getMouseX();
+		double distanceY = this.y - player2.getMouseY();
+		if (Math.abs(distanceX) < 64 && Math.abs(distanceY) < 32){
 			return true;	//近い
 		} else{
 			return false;	//遠い
