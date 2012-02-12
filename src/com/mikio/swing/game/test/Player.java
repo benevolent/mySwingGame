@@ -6,7 +6,7 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
-public class Player {
+public class Player{
 
 	public static final int WIDTH = 32;
 	
@@ -14,7 +14,7 @@ public class Player {
 	
 	private static final int SPEED = 5;
 	
-	private static final int JUMP_SPEED = 20;
+	private static final int JUMP_SPEED = 17;
 	
 	private static final int RIGHT = 0;
 	private static final int LEFT = 1;
@@ -34,7 +34,7 @@ public class Player {
 	private Image image;
 	
 	private Map map;
-	
+		
 	public Player(double x,double y,Map map) {
 		this.x = x;
 		this.y = y;
@@ -44,6 +44,7 @@ public class Player {
 		onGround = false;
 		dir = RIGHT;
 		count = 0;
+				
 		
 		loadImage();
 		
@@ -116,19 +117,28 @@ public class Player {
 				null);
 	}
 	
-	public double getX() {
+	public double getPX() {
 		return x;
 	}
 	
-	public double getY() {
+	public double getPY() {
 		return y;
+	}
+	
+	public boolean isPlayerDistance(MousePlayer player2) {
+		double distance = this.x - player2.getMouseX();
+		if (Math.abs(distance) < 64){
+			return true;	//近い
+		} else{
+			return false;	//遠い
+		}
 	}
 	
 	private void loadImage() {
 		ImageIcon icon = new ImageIcon(getClass().getResource("resource/image/chara.gif"));
 		image = icon.getImage();
 	}
-	
+
 	private class AnimatedThread extends Thread{
 		@Override
 		public void run() {
@@ -146,6 +156,5 @@ public class Player {
 				}
 			}
 		}
-		
 	}
 }

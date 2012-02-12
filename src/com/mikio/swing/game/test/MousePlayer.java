@@ -6,49 +6,56 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class MousePlayer implements MouseMotionListener,MouseListener{
+public class MousePlayer implements MouseListener,MouseMotionListener{
 
-	private int x;
+	private double x;
 	
-	private int y;
+	private double y;
+			
+	private Player player;
 	
-	public MousePlayer(int x,int y) {
+	private boolean isNear;
+	
+	public MousePlayer(double x,double y) {
 		this.x = x;
 		this.y = y;
-		
-		
+		isNear = false;
 	}
 	
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);
-		g.drawRect(x-Player.WIDTH, y-Player.HEIGHT, Player.WIDTH*2, Player.HEIGHT*2);
+		g.drawRect((int)x-Player.WIDTH, (int)y-Player.HEIGHT, Player.WIDTH*2, Player.HEIGHT*2);
+		
+		if (isNear){
+			g.setColor(Color.RED);
+			g.drawRect((int)x-Player.WIDTH, (int)y-Player.HEIGHT, Player.WIDTH*2, Player.HEIGHT*2);
+		}
 	}
 	
-	public int getMouseX() {
+	public double getMouseX() {
 		return x;
 	}
 	
-	public int getMouseY() {
+	public double getMouseY() {
 		return y;
 	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
-		
-	}
-
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
-		System.out.println("x:"+ x);
-		System.out.println("y:"+ y);
+		
+		//isNear = player.isPlayerDistance(this);
+	}
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		x = e.getX();
+		y = e.getY();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("Shoot!!");
+		
 	}
 
 	@Override
@@ -59,19 +66,14 @@ public class MousePlayer implements MouseMotionListener,MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
-		
 	}
 }

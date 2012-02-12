@@ -64,10 +64,10 @@ public class Map {
 		newX = Math.ceil(newX);
 		newY = Math.ceil(newY);
 		
-		double fromX = Math.min(player.getX(), newX);
-		double fromY = Math.min(player.getY(), newY);
-		double toX = Math.max(player.getX(), newX);
-		double toY = Math.max(player.getY(), newY);
+		double fromX = Math.min(player.getPX(), newX);
+		double fromY = Math.min(player.getPY(), newY);
+		double toX = Math.max(player.getPX(), newX);
+		double toY = Math.max(player.getPY(), newY);
 		
 		int fromTileX = pixelsToTiles(fromX);
 		int fromTileY = pixelsToTiles(fromY);

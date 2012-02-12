@@ -21,9 +21,9 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 	
 	private MousePlayer player2;
 	
-	private boolean leftPressed;
-	private boolean rightPressed;
-	private boolean upPressed;
+	private volatile boolean leftPressed;
+	private volatile boolean rightPressed;
+	private volatile boolean upPressed;
 	
 	private Thread gameloop;
 		
@@ -40,9 +40,8 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 		
 		player2 = new MousePlayer(WIDTH / 2, HEIGHT / 2);
 		
-		
-		addMouseMotionListener(player2);
 		addMouseListener(player2);
+		addMouseMotionListener(player2);
 		addKeyListener(this);
 		
 		gameloop = new Thread(this);
@@ -53,12 +52,12 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		int offsetX = MainPanel.WIDTH/ 2 - (int)player.getX();
+		int offsetX = MainPanel.WIDTH/ 2 - (int)player.getPX();
 		
 		offsetX = Math.min(offsetX, 0);
 		offsetX = Math.max(offsetX, MainPanel.WIDTH - map.getWidht());
 		
-		int offsetY = MainPanel.HEIGHT / 2 - (int)player.getY();
+		int offsetY = MainPanel.HEIGHT / 2 - (int)player.getPY();
 		
 		offsetY = Math.min(offsetY, 0);
 		offsetY = Math.max(offsetY, MainPanel.HEIGHT - map.getHeight());
@@ -109,6 +108,7 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 		if (key == KeyEvent.VK_UP){
 			upPressed = true;
 		}
+		
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -125,7 +125,5 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
