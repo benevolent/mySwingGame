@@ -15,6 +15,7 @@ public class MousePlayer implements MouseListener,MouseMotionListener{
 	private Player player;
 	
 	private boolean isNear;
+	private boolean isAttack;
 	
 	public MousePlayer(Player player,int x,int y) {
 		this.x = x;
@@ -22,6 +23,7 @@ public class MousePlayer implements MouseListener,MouseMotionListener{
 		this.player = player;
 		
 		isNear = false;
+		isAttack = false;
 	}
 	
 	public void draw(Graphics g){
@@ -43,6 +45,14 @@ public class MousePlayer implements MouseListener,MouseMotionListener{
 		return y;
 	}
 	
+	public boolean isMouseClicked(){
+		if (isAttack){
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		x = e.getX();
@@ -53,17 +63,24 @@ public class MousePlayer implements MouseListener,MouseMotionListener{
 	public void mouseDragged(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
+		isNear = player.isPlayerDistance(this);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		x = e.getX();
+		y = e.getY();
+		if (player.getPX() < x && player.getPX()+Player.WIDTH > x){
+			if (player.getPY() < y && player.getPY()+Player.HEIGHT > y){
+				isAttack = true;
+			}
+		}
+		isNear = player.isPlayerDistance(this);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO 自動生成されたメソッド・スタブ
-		
+		isNear = player.isPlayerDistance(this);
 	}
 
 	@Override
@@ -72,7 +89,6 @@ public class MousePlayer implements MouseListener,MouseMotionListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
 	}
 
 	@Override

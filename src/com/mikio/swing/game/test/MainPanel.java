@@ -21,6 +21,8 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 	
 	private MousePlayer player2;
 	
+	private PointManager point;
+	
 	private volatile boolean leftPressed;
 	private volatile boolean rightPressed;
 	private volatile boolean upPressed;
@@ -39,6 +41,8 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 		player = new Player(192, 32, map);
 		
 		player2 = new MousePlayer(player,WIDTH / 2, HEIGHT / 2);
+		
+		point = new PointManager();
 		
 		addMouseListener(player2);
 		addMouseMotionListener(player2);
@@ -67,6 +71,8 @@ public class MainPanel extends JPanel implements Runnable,KeyListener{
 		player.draw(g,offsetX,offsetY);
 		
 		player2.draw(g);
+		
+		point.draw(g);
         
 	}
 	@Override
